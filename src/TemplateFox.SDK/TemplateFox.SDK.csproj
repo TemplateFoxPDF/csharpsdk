@@ -15,10 +15,11 @@
     <Version>1.0.0</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\TemplateFox.SDK.xml</DocumentationFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://pdftemplateapi.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TemplateFoxPDF/csharpsdk.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
-    <PackageTags>pdf,template,api,generation</PackageTags>
+    <PackageTags>pdf,pdf-generation,template,api,html-to-pdf,templatefox,pdf-template,document-generation,invoice,report,sdk,pdf-api</PackageTags>
     <Nullable>annotations</Nullable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>

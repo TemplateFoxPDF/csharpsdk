@@ -27,35 +27,29 @@ using OpenAPIDateConverter = TemplateFox.SDK.Client.OpenAPIDateConverter;
 namespace TemplateFox.SDK.Model
 {
     /// <summary>
-    /// PDF job status values
+    /// PDF variant for standards-compliant output (PDF/A).
     /// </summary>
-    /// <value>PDF job status values</value>
+    /// <value>PDF variant for standards-compliant output (PDF/A).</value>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum JobStatus
+    public enum PdfVariant
     {
         /// <summary>
-        /// Enum Pending for value: pending
+        /// Enum PdfA1b for value: pdf/a-1b
         /// </summary>
-        [EnumMember(Value = "pending")]
-        Pending = 1,
+        [EnumMember(Value = "pdf/a-1b")]
+        PdfA1b = 1,
 
         /// <summary>
-        /// Enum Processing for value: processing
+        /// Enum PdfA2b for value: pdf/a-2b
         /// </summary>
-        [EnumMember(Value = "processing")]
-        Processing = 2,
+        [EnumMember(Value = "pdf/a-2b")]
+        PdfA2b = 2,
 
         /// <summary>
-        /// Enum Completed for value: completed
+        /// Enum PdfA3b for value: pdf/a-3b
         /// </summary>
-        [EnumMember(Value = "completed")]
-        Completed = 3,
-
-        /// <summary>
-        /// Enum Failed for value: failed
-        /// </summary>
-        [EnumMember(Value = "failed")]
-        Failed = 4
+        [EnumMember(Value = "pdf/a-3b")]
+        PdfA3b = 3
     }
 
 }

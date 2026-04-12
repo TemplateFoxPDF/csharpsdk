@@ -27,25 +27,35 @@ using OpenAPIDateConverter = TemplateFox.SDK.Client.OpenAPIDateConverter;
 namespace TemplateFox.SDK.Model
 {
     /// <summary>
-    /// HTTPValidationError
+    /// Response for versions list
     /// </summary>
-    [DataContract(Name = "HTTPValidationError")]
-    public partial class HTTPValidationError : IValidatableObject
+    [DataContract(Name = "VersionsListResponse")]
+    public partial class VersionsListResponse : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HTTPValidationError" /> class.
+        /// Initializes a new instance of the <see cref="VersionsListResponse" /> class.
         /// </summary>
-        /// <param name="detail">detail.</param>
-        public HTTPValidationError(List<ValidationError> detail = default)
+        [JsonConstructorAttribute]
+        protected VersionsListResponse() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VersionsListResponse" /> class.
+        /// </summary>
+        /// <param name="versions">versions (required).</param>
+        public VersionsListResponse(List<VersionItem> versions = default)
         {
-            this.Detail = detail;
+            // to ensure "versions" is required (not null)
+            if (versions == null)
+            {
+                throw new ArgumentNullException("versions is a required property for VersionsListResponse and cannot be null");
+            }
+            this.Versions = versions;
         }
 
         /// <summary>
-        /// Gets or Sets Detail
+        /// Gets or Sets Versions
         /// </summary>
-        [DataMember(Name = "detail", EmitDefaultValue = false)]
-        public List<ValidationError> Detail { get; set; }
+        [DataMember(Name = "versions", IsRequired = true, EmitDefaultValue = true)]
+        public List<VersionItem> Versions { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -54,8 +64,8 @@ namespace TemplateFox.SDK.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class HTTPValidationError {\n");
-            sb.Append("  Detail: ").Append(Detail).Append("\n");
+            sb.Append("class VersionsListResponse {\n");
+            sb.Append("  Versions: ").Append(Versions).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

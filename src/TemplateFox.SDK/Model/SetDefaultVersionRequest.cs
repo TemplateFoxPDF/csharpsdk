@@ -27,25 +27,31 @@ using OpenAPIDateConverter = TemplateFox.SDK.Client.OpenAPIDateConverter;
 namespace TemplateFox.SDK.Model
 {
     /// <summary>
-    /// HTTPValidationError
+    /// Request to set the default version
     /// </summary>
-    [DataContract(Name = "HTTPValidationError")]
-    public partial class HTTPValidationError : IValidatableObject
+    [DataContract(Name = "SetDefaultVersionRequest")]
+    public partial class SetDefaultVersionRequest : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HTTPValidationError" /> class.
+        /// Initializes a new instance of the <see cref="SetDefaultVersionRequest" /> class.
         /// </summary>
-        /// <param name="detail">detail.</param>
-        public HTTPValidationError(List<ValidationError> detail = default)
+        [JsonConstructorAttribute]
+        protected SetDefaultVersionRequest() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SetDefaultVersionRequest" /> class.
+        /// </summary>
+        /// <param name="versionNumber">Version number to set as default (required).</param>
+        public SetDefaultVersionRequest(int versionNumber = default)
         {
-            this.Detail = detail;
+            this.VersionNumber = versionNumber;
         }
 
         /// <summary>
-        /// Gets or Sets Detail
+        /// Version number to set as default
         /// </summary>
-        [DataMember(Name = "detail", EmitDefaultValue = false)]
-        public List<ValidationError> Detail { get; set; }
+        /// <value>Version number to set as default</value>
+        [DataMember(Name = "version_number", IsRequired = true, EmitDefaultValue = true)]
+        public int VersionNumber { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -54,8 +60,8 @@ namespace TemplateFox.SDK.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class HTTPValidationError {\n");
-            sb.Append("  Detail: ").Append(Detail).Append("\n");
+            sb.Append("class SetDefaultVersionRequest {\n");
+            sb.Append("  VersionNumber: ").Append(VersionNumber).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

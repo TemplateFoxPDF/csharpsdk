@@ -1,6 +1,6 @@
 # TemplateFox C# SDK
 
-Official .NET SDK for [TemplateFox](https://pdftemplateapi.com) - Generate PDFs from HTML templates via API.
+Official .NET SDK for [TemplateFox](https://templatefox.com) - Generate PDFs from HTML templates via API.
 
 [![NuGet version](https://badge.fury.io/nu/TemplateFox.SDK.svg)](https://www.nuget.org/packages/TemplateFox.SDK)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -153,7 +153,7 @@ Console.WriteLine($"Connection: {(test.Success ? "OK" : "Failed")}");
 ```csharp
 var config = new Configuration
 {
-    BasePath = "https://api.pdftemplateapi.com",  // Default API URL
+    BasePath = "https://api.templatefox.com",  // Default API URL
     ApiKey = new Dictionary<string, string>
     {
         { "x-api-key", Environment.GetEnvironmentVariable("TEMPLATEFOX_API_KEY") }
@@ -229,13 +229,13 @@ public class PdfController : ControllerBase
 
 ## Documentation
 
-- [API Documentation](https://pdftemplateapi.com/docs)
-- [Swagger UI](https://api.pdftemplateapi.com/docs)
-- [Dashboard](https://pdftemplateapi.com/dashboard)
+- [API Documentation](https://templatefox.com/docs)
+- [Swagger UI](https://api.templatefox.com/docs)
+- [Dashboard](https://templatefox.com/dashboard)
 
 ## Support
 
-- Email: support@pdftemplateapi.com
+- Email: support@templatefox.com
 - Issues: [GitHub Issues](https://github.com/TemplateFoxPDF/csharpsdk/issues)
 
 ## License

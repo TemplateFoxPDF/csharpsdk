@@ -27,39 +27,33 @@ using OpenAPIDateConverter = TemplateFox.SDK.Client.OpenAPIDateConverter;
 namespace TemplateFox.SDK.Model
 {
     /// <summary>
-    /// Response for account info endpoint
+    /// Request to create a version snapshot
     /// </summary>
-    [DataContract(Name = "AccountInfoResponse")]
-    public partial class AccountInfoResponse : IValidatableObject
+    [DataContract(Name = "CreateVersionRequest")]
+    public partial class CreateVersionRequest : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountInfoResponse" /> class.
+        /// Initializes a new instance of the <see cref="CreateVersionRequest" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected AccountInfoResponse() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccountInfoResponse" /> class.
-        /// </summary>
-        /// <param name="credits">Remaining credits (required).</param>
-        /// <param name="email">email.</param>
-        public AccountInfoResponse(int credits = default, string email = default)
+        /// <param name="tag">tag.</param>
+        /// <param name="description">description.</param>
+        public CreateVersionRequest(string tag = default, string description = default)
         {
-            this.Credits = credits;
-            this.Email = email;
+            this.Tag = tag;
+            this.Description = description;
         }
 
         /// <summary>
-        /// Remaining credits
+        /// Gets or Sets Tag
         /// </summary>
-        /// <value>Remaining credits</value>
-        [DataMember(Name = "credits", IsRequired = true, EmitDefaultValue = true)]
-        public int Credits { get; set; }
+        [DataMember(Name = "tag", EmitDefaultValue = true)]
+        public string Tag { get; set; }
 
         /// <summary>
-        /// Gets or Sets Email
+        /// Gets or Sets Description
         /// </summary>
-        [DataMember(Name = "email", EmitDefaultValue = true)]
-        public string Email { get; set; }
+        [DataMember(Name = "description", EmitDefaultValue = true)]
+        public string Description { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -68,9 +62,9 @@ namespace TemplateFox.SDK.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class AccountInfoResponse {\n");
-            sb.Append("  Credits: ").Append(Credits).Append("\n");
-            sb.Append("  Email: ").Append(Email).Append("\n");
+            sb.Append("class CreateVersionRequest {\n");
+            sb.Append("  Tag: ").Append(Tag).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -91,6 +85,27 @@ namespace TemplateFox.SDK.Model
         /// <returns>Validation Result</returns>
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            // Tag (string) maxLength
+            if (this.Tag != null && this.Tag.Length > 50)
+            {
+                yield return new ValidationResult("Invalid value for Tag, length must be less than 50.", new [] { "Tag" });
+            }
+
+            if (this.Tag != null) {
+                // Tag (string) pattern
+                Regex regexTag = new Regex(@"^[a-z0-9][a-z0-9_-]{0,48}[a-z0-9]$", RegexOptions.CultureInvariant);
+                if (!regexTag.Match(this.Tag).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Tag, must match a pattern of " + regexTag, new [] { "Tag" });
+                }
+            }
+
+            // Description (string) maxLength
+            if (this.Description != null && this.Description.Length > 500)
+            {
+                yield return new ValidationResult("Invalid value for Description, length must be less than 500.", new [] { "Description" });
+            }
+
             yield break;
         }
     }

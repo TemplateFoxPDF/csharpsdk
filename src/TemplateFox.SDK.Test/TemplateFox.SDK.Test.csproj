@@ -5,6 +5,7 @@
     <RootNamespace>TemplateFox.SDK.Test</RootNamespace>
     <TargetFramework>net7.0</TargetFramework>
     <IsPackable>false</IsPackable>
+    <LangVersion>8.0</LangVersion>
     <Nullable>annotations</Nullable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>

@@ -12,13 +12,14 @@
     <Description>Official TemplateFox .NET SDK - Generate PDFs from HTML templates via API</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>TemplateFox.SDK</RootNamespace>
-    <Version>1.9.4</Version>
+    <Version>1.9.5</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\TemplateFox.SDK.xml</DocumentationFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/TemplateFoxPDF/csharpsdk.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <PackageTags>pdf,template,api,generation</PackageTags>
+    <LangVersion>8.0</LangVersion>
     <Nullable>annotations</Nullable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>

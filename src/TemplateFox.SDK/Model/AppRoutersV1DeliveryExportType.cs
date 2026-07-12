@@ -27,29 +27,23 @@ using OpenAPIDateConverter = TemplateFox.SDK.Client.OpenAPIDateConverter;
 namespace TemplateFox.SDK.Model
 {
     /// <summary>
-    /// PDF variant for standards-compliant output (PDF/A).
+    /// Output delivery type options
     /// </summary>
-    /// <value>PDF variant for standards-compliant output (PDF/A).</value>
+    /// <value>Output delivery type options</value>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum PdfVariant
+    public enum AppRoutersV1DeliveryExportType
     {
         /// <summary>
-        /// Enum PdfA1b for value: pdf/a-1b
+        /// Enum Url for value: url
         /// </summary>
-        [EnumMember(Value = "pdf/a-1b")]
-        PdfA1b = 1,
+        [EnumMember(Value = "url")]
+        Url = 1,
 
         /// <summary>
-        /// Enum PdfA2b for value: pdf/a-2b
+        /// Enum Binary for value: binary
         /// </summary>
-        [EnumMember(Value = "pdf/a-2b")]
-        PdfA2b = 2,
-
-        /// <summary>
-        /// Enum PdfA3b for value: pdf/a-3b
-        /// </summary>
-        [EnumMember(Value = "pdf/a-3b")]
-        PdfA3b = 3
+        [EnumMember(Value = "binary")]
+        Binary = 2
     }
 
 }

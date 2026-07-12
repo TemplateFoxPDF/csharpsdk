@@ -27,63 +27,65 @@ using OpenAPIDateConverter = TemplateFox.SDK.Client.OpenAPIDateConverter;
 namespace TemplateFox.SDK.Model
 {
     /// <summary>
-    /// Request model for PDF generation
+    /// Request model for image generation
     /// </summary>
-    [DataContract(Name = "CreatePdfRequest")]
-    public partial class CreatePdfRequest : IValidatableObject
+    [DataContract(Name = "CreateImageRequest")]
+    public partial class CreateImageRequest : IValidatableObject
     {
 
         /// <summary>
-        /// Export format: &#x60;url&#x60; uploads to CDN and returns URL, &#x60;binary&#x60; returns raw PDF bytes
+        /// Output image format: &#x60;png&#x60; (default), &#x60;jpeg&#x60; or &#x60;webp&#x60;.
         /// </summary>
-        /// <value>Export format: &#x60;url&#x60; uploads to CDN and returns URL, &#x60;binary&#x60; returns raw PDF bytes</value>
-        [DataMember(Name = "export_type", EmitDefaultValue = false)]
-        public AppRoutersV1DeliveryExportType? ExportType { get; set; }
+        /// <value>Output image format: &#x60;png&#x60; (default), &#x60;jpeg&#x60; or &#x60;webp&#x60;.</value>
+        [DataMember(Name = "format", EmitDefaultValue = false)]
+        public ImageFormat? Format { get; set; }
 
         /// <summary>
-        /// Gets or Sets PdfVariant
+        /// Export format: &#x60;url&#x60; uploads to CDN and returns URL, &#x60;binary&#x60; returns raw image bytes
         /// </summary>
-        [DataMember(Name = "pdf_variant", EmitDefaultValue = true)]
-        public PdfVariant? PdfVariant { get; set; }
+        /// <value>Export format: &#x60;url&#x60; uploads to CDN and returns URL, &#x60;binary&#x60; returns raw image bytes</value>
+        [DataMember(Name = "export_type", EmitDefaultValue = false)]
+        public AppRoutersV1DeliveryExportType? ExportType { get; set; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreatePdfRequest" /> class.
+        /// Initializes a new instance of the <see cref="CreateImageRequest" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected CreatePdfRequest() { }
+        protected CreateImageRequest() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreatePdfRequest" /> class.
+        /// Initializes a new instance of the <see cref="CreateImageRequest" /> class.
         /// </summary>
         /// <param name="templateId">Template short ID (12 characters) (required).</param>
-        /// <param name="data">Key-value data to render in the template. Keys must match template variables. (required).</param>
-        /// <param name="exportType">Export format: &#x60;url&#x60; uploads to CDN and returns URL, &#x60;binary&#x60; returns raw PDF bytes.</param>
+        /// <param name="modifications">modifications.</param>
+        /// <param name="data">Optional key-value data merged into &#x60;{{ }}&#x60; template variables. For most image templates, prefer &#x60;modifications&#x60; instead..</param>
+        /// <param name="format">Output image format: &#x60;png&#x60; (default), &#x60;jpeg&#x60; or &#x60;webp&#x60;..</param>
+        /// <param name="width">width.</param>
+        /// <param name="quality">Compression quality for &#x60;jpeg&#x60;/&#x60;webp&#x60; (1-100). Ignored for &#x60;png&#x60;. (default to 85).</param>
+        /// <param name="exportType">Export format: &#x60;url&#x60; uploads to CDN and returns URL, &#x60;binary&#x60; returns raw image bytes.</param>
         /// <param name="expiration">URL expiration in seconds. Min: 60 (1 min), Max: 604800 (7 days). Only applies to &#x60;url&#x60; export type. (default to 86400).</param>
         /// <param name="filename">filename.</param>
         /// <param name="storeS3">Upload to your configured S3 bucket instead of CDN (default to false).</param>
         /// <param name="s3Filepath">s3Filepath.</param>
         /// <param name="s3Bucket">s3Bucket.</param>
-        /// <param name="pdfVariant">pdfVariant.</param>
         /// <param name="varVersion">varVersion.</param>
-        public CreatePdfRequest(string templateId = default, Dictionary<string, Object> data = default, AppRoutersV1DeliveryExportType? exportType = default, int expiration = 86400, string filename = default, bool storeS3 = false, string s3Filepath = default, string s3Bucket = default, PdfVariant? pdfVariant = default, string varVersion = default)
+        public CreateImageRequest(string templateId = default, List<Modification> modifications = default, Dictionary<string, Object> data = default, ImageFormat? format = default, int? width = default, int quality = 85, AppRoutersV1DeliveryExportType? exportType = default, int expiration = 86400, string filename = default, bool storeS3 = false, string s3Filepath = default, string s3Bucket = default, string varVersion = default)
         {
             // to ensure "templateId" is required (not null)
             if (templateId == null)
             {
-                throw new ArgumentNullException("templateId is a required property for CreatePdfRequest and cannot be null");
+                throw new ArgumentNullException("templateId is a required property for CreateImageRequest and cannot be null");
             }
             this.TemplateId = templateId;
-            // to ensure "data" is required (not null)
-            if (data == null)
-            {
-                throw new ArgumentNullException("data is a required property for CreatePdfRequest and cannot be null");
-            }
+            this.Modifications = modifications;
             this.Data = data;
+            this.Format = format;
+            this.Width = width;
+            this.Quality = quality;
             this.ExportType = exportType;
             this.Expiration = expiration;
             this.Filename = filename;
             this.StoreS3 = storeS3;
             this.S3Filepath = s3Filepath;
             this.S3Bucket = s3Bucket;
-            this.PdfVariant = pdfVariant;
             this.VarVersion = varVersion;
         }
 
@@ -95,11 +97,30 @@ namespace TemplateFox.SDK.Model
         public string TemplateId { get; set; }
 
         /// <summary>
-        /// Key-value data to render in the template. Keys must match template variables.
+        /// Gets or Sets Modifications
         /// </summary>
-        /// <value>Key-value data to render in the template. Keys must match template variables.</value>
-        [DataMember(Name = "data", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "modifications", EmitDefaultValue = true)]
+        public List<Modification> Modifications { get; set; }
+
+        /// <summary>
+        /// Optional key-value data merged into &#x60;{{ }}&#x60; template variables. For most image templates, prefer &#x60;modifications&#x60; instead.
+        /// </summary>
+        /// <value>Optional key-value data merged into &#x60;{{ }}&#x60; template variables. For most image templates, prefer &#x60;modifications&#x60; instead.</value>
+        [DataMember(Name = "data", EmitDefaultValue = false)]
         public Dictionary<string, Object> Data { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Width
+        /// </summary>
+        [DataMember(Name = "width", EmitDefaultValue = true)]
+        public int? Width { get; set; }
+
+        /// <summary>
+        /// Compression quality for &#x60;jpeg&#x60;/&#x60;webp&#x60; (1-100). Ignored for &#x60;png&#x60;.
+        /// </summary>
+        /// <value>Compression quality for &#x60;jpeg&#x60;/&#x60;webp&#x60; (1-100). Ignored for &#x60;png&#x60;.</value>
+        [DataMember(Name = "quality", EmitDefaultValue = false)]
+        public int Quality { get; set; }
 
         /// <summary>
         /// URL expiration in seconds. Min: 60 (1 min), Max: 604800 (7 days). Only applies to &#x60;url&#x60; export type.
@@ -146,16 +167,19 @@ namespace TemplateFox.SDK.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class CreatePdfRequest {\n");
+            sb.Append("class CreateImageRequest {\n");
             sb.Append("  TemplateId: ").Append(TemplateId).Append("\n");
+            sb.Append("  Modifications: ").Append(Modifications).Append("\n");
             sb.Append("  Data: ").Append(Data).Append("\n");
+            sb.Append("  Format: ").Append(Format).Append("\n");
+            sb.Append("  Width: ").Append(Width).Append("\n");
+            sb.Append("  Quality: ").Append(Quality).Append("\n");
             sb.Append("  ExportType: ").Append(ExportType).Append("\n");
             sb.Append("  Expiration: ").Append(Expiration).Append("\n");
             sb.Append("  Filename: ").Append(Filename).Append("\n");
             sb.Append("  StoreS3: ").Append(StoreS3).Append("\n");
             sb.Append("  S3Filepath: ").Append(S3Filepath).Append("\n");
             sb.Append("  S3Bucket: ").Append(S3Bucket).Append("\n");
-            sb.Append("  PdfVariant: ").Append(PdfVariant).Append("\n");
             sb.Append("  VarVersion: ").Append(VarVersion).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -187,6 +211,30 @@ namespace TemplateFox.SDK.Model
             if (this.TemplateId != null && this.TemplateId.Length < 12)
             {
                 yield return new ValidationResult("Invalid value for TemplateId, length must be greater than 12.", new [] { "TemplateId" });
+            }
+
+            // Width (int?) maximum
+            if (this.Width > (int?)4000)
+            {
+                yield return new ValidationResult("Invalid value for Width, must be a value less than or equal to 4000.", new [] { "Width" });
+            }
+
+            // Width (int?) minimum
+            if (this.Width < (int?)100)
+            {
+                yield return new ValidationResult("Invalid value for Width, must be a value greater than or equal to 100.", new [] { "Width" });
+            }
+
+            // Quality (int) maximum
+            if (this.Quality > (int)100)
+            {
+                yield return new ValidationResult("Invalid value for Quality, must be a value less than or equal to 100.", new [] { "Quality" });
+            }
+
+            // Quality (int) minimum
+            if (this.Quality < (int)1)
+            {
+                yield return new ValidationResult("Invalid value for Quality, must be a value greater than or equal to 1.", new [] { "Quality" });
             }
 
             // Expiration (int) maximum

@@ -27,52 +27,54 @@ using OpenAPIDateConverter = TemplateFox.SDK.Client.OpenAPIDateConverter;
 namespace TemplateFox.SDK.Model
 {
     /// <summary>
-    /// PdfToolsResponse
+    /// Response for URL export type
     /// </summary>
-    [DataContract(Name = "PdfToolsResponse")]
-    public partial class PdfToolsResponse : IValidatableObject
+    [DataContract(Name = "CreateImageResponse")]
+    public partial class CreateImageResponse : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PdfToolsResponse" /> class.
+        /// Initializes a new instance of the <see cref="CreateImageResponse" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected PdfToolsResponse() { }
+        protected CreateImageResponse() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="PdfToolsResponse" /> class.
+        /// Initializes a new instance of the <see cref="CreateImageResponse" /> class.
         /// </summary>
-        /// <param name="url">Signed URL to download the PDF (required).</param>
-        /// <param name="filename">Filename of the resulting PDF (required).</param>
+        /// <param name="url">Signed URL to download the image (expires after specified time) (required).</param>
+        /// <param name="filename">Filename of the generated image (required).</param>
         /// <param name="creditsRemaining">Remaining credits after this request (required).</param>
         /// <param name="expiresIn">Seconds until the signed URL expires (required).</param>
-        public PdfToolsResponse(string url = default, string filename = default, int creditsRemaining = default, int expiresIn = default)
+        /// <param name="warnings">warnings.</param>
+        public CreateImageResponse(string url = default, string filename = default, int creditsRemaining = default, int expiresIn = default, List<string> warnings = default)
         {
             // to ensure "url" is required (not null)
             if (url == null)
             {
-                throw new ArgumentNullException("url is a required property for PdfToolsResponse and cannot be null");
+                throw new ArgumentNullException("url is a required property for CreateImageResponse and cannot be null");
             }
             this.Url = url;
             // to ensure "filename" is required (not null)
             if (filename == null)
             {
-                throw new ArgumentNullException("filename is a required property for PdfToolsResponse and cannot be null");
+                throw new ArgumentNullException("filename is a required property for CreateImageResponse and cannot be null");
             }
             this.Filename = filename;
             this.CreditsRemaining = creditsRemaining;
             this.ExpiresIn = expiresIn;
+            this.Warnings = warnings;
         }
 
         /// <summary>
-        /// Signed URL to download the PDF
+        /// Signed URL to download the image (expires after specified time)
         /// </summary>
-        /// <value>Signed URL to download the PDF</value>
+        /// <value>Signed URL to download the image (expires after specified time)</value>
         [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = true)]
         public string Url { get; set; }
 
         /// <summary>
-        /// Filename of the resulting PDF
+        /// Filename of the generated image
         /// </summary>
-        /// <value>Filename of the resulting PDF</value>
+        /// <value>Filename of the generated image</value>
         [DataMember(Name = "filename", IsRequired = true, EmitDefaultValue = true)]
         public string Filename { get; set; }
 
@@ -91,17 +93,24 @@ namespace TemplateFox.SDK.Model
         public int ExpiresIn { get; set; }
 
         /// <summary>
+        /// Gets or Sets Warnings
+        /// </summary>
+        [DataMember(Name = "warnings", EmitDefaultValue = true)]
+        public List<string> Warnings { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class PdfToolsResponse {\n");
+            sb.Append("class CreateImageResponse {\n");
             sb.Append("  Url: ").Append(Url).Append("\n");
             sb.Append("  Filename: ").Append(Filename).Append("\n");
             sb.Append("  CreditsRemaining: ").Append(CreditsRemaining).Append("\n");
             sb.Append("  ExpiresIn: ").Append(ExpiresIn).Append("\n");
+            sb.Append("  Warnings: ").Append(Warnings).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

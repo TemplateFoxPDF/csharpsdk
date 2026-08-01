@@ -27,61 +27,44 @@ using OpenAPIDateConverter = TemplateFox.SDK.Client.OpenAPIDateConverter;
 namespace TemplateFox.SDK.Model
 {
     /// <summary>
-    /// ValidationError
+    /// Response for template layers endpoint
     /// </summary>
-    [DataContract(Name = "ValidationError")]
-    public partial class ValidationError : IValidatableObject
+    [DataContract(Name = "TemplateLayersResponse")]
+    public partial class TemplateLayersResponse : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationError" /> class.
+        /// Initializes a new instance of the <see cref="TemplateLayersResponse" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ValidationError() { }
+        protected TemplateLayersResponse() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationError" /> class.
+        /// Initializes a new instance of the <see cref="TemplateLayersResponse" /> class.
         /// </summary>
-        /// <param name="loc">loc (required).</param>
-        /// <param name="msg">msg (required).</param>
-        /// <param name="type">type (required).</param>
-        public ValidationError(List<LocationInner> loc = default, string msg = default, string type = default)
+        /// <param name="layers">layers (required).</param>
+        /// <param name="warnings">Non-fatal issues (e.g. duplicate layer names).</param>
+        public TemplateLayersResponse(List<TemplateLayer> layers = default, List<string> warnings = default)
         {
-            // to ensure "loc" is required (not null)
-            if (loc == null)
+            // to ensure "layers" is required (not null)
+            if (layers == null)
             {
-                throw new ArgumentNullException("loc is a required property for ValidationError and cannot be null");
+                throw new ArgumentNullException("layers is a required property for TemplateLayersResponse and cannot be null");
             }
-            this.Loc = loc;
-            // to ensure "msg" is required (not null)
-            if (msg == null)
-            {
-                throw new ArgumentNullException("msg is a required property for ValidationError and cannot be null");
-            }
-            this.Msg = msg;
-            // to ensure "type" is required (not null)
-            if (type == null)
-            {
-                throw new ArgumentNullException("type is a required property for ValidationError and cannot be null");
-            }
-            this.Type = type;
+            this.Layers = layers;
+            this.Warnings = warnings;
         }
 
         /// <summary>
-        /// Gets or Sets Loc
+        /// Gets or Sets Layers
         /// </summary>
-        [DataMember(Name = "loc", IsRequired = true, EmitDefaultValue = true)]
-        public List<LocationInner> Loc { get; set; }
+        [DataMember(Name = "layers", IsRequired = true, EmitDefaultValue = true)]
+        public List<TemplateLayer> Layers { get; set; }
 
         /// <summary>
-        /// Gets or Sets Msg
+        /// Non-fatal issues (e.g. duplicate layer names)
         /// </summary>
-        [DataMember(Name = "msg", IsRequired = true, EmitDefaultValue = true)]
-        public string Msg { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
-        public string Type { get; set; }
+        /// <value>Non-fatal issues (e.g. duplicate layer names)</value>
+        [DataMember(Name = "warnings", EmitDefaultValue = false)]
+        public List<string> Warnings { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -90,10 +73,9 @@ namespace TemplateFox.SDK.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class ValidationError {\n");
-            sb.Append("  Loc: ").Append(Loc).Append("\n");
-            sb.Append("  Msg: ").Append(Msg).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("class TemplateLayersResponse {\n");
+            sb.Append("  Layers: ").Append(Layers).Append("\n");
+            sb.Append("  Warnings: ").Append(Warnings).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
